@@ -1,0 +1,53 @@
+数据源：LTC测试数据
+数据时间段：  2017-07-25 07:43:25 --2017-07-26 07:43:25
+数据数量：  100  （选择时间段的数据数据量）
+显示字段：
+
+
+首页点击 和 历史数据显示：(相同)
+
+1 、显示最新的100条数据：  /v1.0/LTC_data/head/100   Port:5000
+2 、在输入框自己填写显示数据数目：  /v1.0/LTC_data/head   Port:5000
+
+
+导出文件：
+1 、 导出CSV文件： /v1.0/exportdata/csv  Port：5001
+	POST 所传的值
+	 {
+	     "start":"2017-07-25 07:43:25",
+	     "end":"2017-07-26 07:43:25",
+	     "index":["base_topic" , "dst" , "src" , "seq" , "SNR" , "RSSIpkt" , "BW" , "CR" , "SF" , "sensor_id" , "version", "command_id", "data_length" , "data" , "mote_lon" , "mote_lat" , "time" ],
+	     "exportpath":"D:\\pandas\\bb"   文件路径及文件名
+	 }
+
+2 、 导出EXCEl文件： /v1.0/exportdata/xlsx  Port：5001
+
+缺失值：(找出 字段 data 为 ，的数据)
+	/v1.0/miss_data  Port ： 5002
+
+	POST 所传的值
+	 {
+	     "start":"2017-07-25 07:43:25",
+	     "end":"2017-07-26 07:43:25",
+	     "index":["base_topic" , "dst" , "src" , "seq" , "SNR" , "RSSIpkt" , "BW" , "CR" , "SF" , "sensor_id" , "version", "command_id", "data_length" , "data" , "mote_lon" , "mote_lat" , "time" ],
+	 }
+
+
+异常值：(找出 字段 X 有异常的数据，异常值得判断条件)
+	/v1.0/miss_data  Port ： 5002
+
+	POST 所传的值
+	 {
+	     "start":"2017-07-25 07:43:25",
+	     "end":"2017-07-26 07:43:25",
+	     "index":["base_topic" , "dst" , "src" , "seq" , "SNR" , "RSSIpkt" , "BW" , "CR" , "SF" , "sensor_id" , "version", "command_id", "data_length" , "data" , "mote_lon" , "mote_lat" , "time" ],
+	 }
+
+实时数据显示：(WAMP退给前端)
+	订阅的主题： LTC_real_data
+	WAMP服务：  "ws://www.wugeek.cn:8090/ws"    "realm1"
+	推送的实时数据： {
+				"time":2017-07-25 07:43:25,
+				"RSSIpkt":-72,
+				"seq": 5
+				}
